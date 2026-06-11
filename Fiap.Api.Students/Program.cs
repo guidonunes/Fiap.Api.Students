@@ -1,3 +1,4 @@
+using Fiap.Api.Students.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 #region DATA BASE INITIALIZATION
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var connectionString = builder.Configuration.GetConnectionString("DatabaseConnection");
 builder.Services.AddDbContext<DatabaseContext>(opt => opt.UseOracle(connectionString).EnableSensitiveDataLogging(true)
 );
 
