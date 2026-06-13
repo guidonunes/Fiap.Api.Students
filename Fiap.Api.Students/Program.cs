@@ -1,10 +1,34 @@
+using System.Text;
 using Fiap.Api.Students.Data;
 using Fiap.Api.Students.Data.Repository;
 using Fiap.Api.Students.Mapping;
 using Fiap.Api.Students.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
+
+#region 
+
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("f+ujXAKHk00L5jlMXo2XhAWawsOoihNP1OiAM25lLSO57+X7uBMQgwPju6yzyePi")),
+            ValidateIssuer = false,
+            ValidateAudience = false
+        };
+    });
+
+#endregion
+
 
 
 #region DATA BASE INITIALIZATION

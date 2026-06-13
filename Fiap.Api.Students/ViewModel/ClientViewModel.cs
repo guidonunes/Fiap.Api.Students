@@ -9,5 +9,5 @@ public class ClientViewModel
     public DateTime BirthDate{ get; set; }
     public string Observation { get; set; }
     public int RepresentativeId { get; set; }
-    public RepresentativeViewModel Representative { get; set; }
+    public RepresentativeViewModel? Representative { get; set; }
 }

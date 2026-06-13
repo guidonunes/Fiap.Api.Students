@@ -20,7 +20,7 @@ public class ClientService: IClientService
 
     public void UpdateClient(ClientModel client) => _repository.Update(client);
 
-    public void DeleteCliente(int id)
+    public void DeleteClient(int id)
     {
         var client = _repository.GetById(id);
         if (client != null)
