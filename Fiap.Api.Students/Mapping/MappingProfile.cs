@@ -29,5 +29,35 @@ public class MappingProfile : Profile
                 destination => destination.ClientId,
                 options => options.MapFrom(source => source.ClientId)
             );
+
+        CreateMap<ProductModel, ProductViewModel>();
+        CreateMap<ProductViewModel, ProductModel>();
+
+        CreateMap<StoreModel, StoreViewModel>();
+        CreateMap<StoreViewModel, StoreModel>();
+
+        CreateMap<SupplierModel, SupplierViewModel>();
+        CreateMap<SupplierViewModel, SupplierModel>();
+
+        CreateMap<OrderModel, OrderViewModel>()
+            .ForMember(
+                destination => destination.OrderId,
+                options => options.MapFrom(source => source.OrderId)
+            )
+            .ForMember(
+                destination => destination.Products,
+                options => options.MapFrom(source =>
+                    source.OrderProducts == null
+                        ? Enumerable.Empty<ProductModel>()
+                        : source.OrderProducts
+                            .Where(orderProduct => orderProduct.Product != null)
+                            .Select(orderProduct => orderProduct.Product))
+            );
+
+        CreateMap<OrderViewModel, OrderModel>()
+            .ForMember(
+                destination => destination.OrderId,
+                options => options.MapFrom(source => source.OrderId)
+            );
     }
 }
