@@ -9,7 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
-#region 
+#region Auth
 
 builder.Services.AddAuthentication(options =>
     {

@@ -2,12 +2,14 @@ using AutoMapper;
 using Fiap.Api.Students.Models;
 using Fiap.Api.Students.Services;
 using Fiap.Api.Students.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Fiap.Api.Students.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class ClientController: ControllerBase
 {
     private readonly IClientService _service;
