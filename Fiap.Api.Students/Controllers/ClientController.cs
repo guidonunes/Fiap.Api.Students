@@ -67,4 +67,34 @@ public class ClientController: ControllerBase
         _service.DeleteClient(id);
         return NoContent();
     }
+    
+    /*[HttpGet("pagination")]
+    [Authorize(Roles = "operador,analista,gerente")]
+    public ActionResult<ClientPaginationViewModel> Get([FromQuery] int page = 1, [FromQuery] int size = 10)
+    {
+        var clients = _service.GetAllClients(page, size);
+        var viewModelList = _mapper.Map<IEnumerable<ClientViewModel>>(clients);
+        var viewModel = new ClientPaginationViewModel
+        {
+            Clients = viewModelList,
+            CurrentPage = page,
+            PageSize = size
+        };
+        return Ok(viewModel);
+    }*/
+    
+    [HttpGet("pagination")]
+    public ActionResult<IEnumerable<ClientPaginationReferenceViewModel>> Get([FromQuery] int reference = 0, [FromQuery] int size = 10)
+        {
+          var clients = _service.GetAllClients(reference, size);
+          var viewModelList = _mapper.Map<IEnumerable<ClientViewModel>>(clients);
+          var viewModel = new ClientPaginationReferenceViewModel
+        { 
+            Clients = viewModelList,
+            PageSize = size,
+            Ref = reference,
+            NextRef = viewModelList.Last().ClientId
+        };
+        return Ok(viewModel);
+        }
 }

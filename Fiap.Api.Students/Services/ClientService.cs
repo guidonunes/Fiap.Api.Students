@@ -14,6 +14,8 @@ public class ClientService: IClientService
 
     public IEnumerable<ClientModel> GetAllClients() => _repository.GetAll();
 
+    public IEnumerable<ClientModel> GetAllClients(int page, int size) => _repository.GetAll(page, size);
+
     public ClientModel GetClientById(int id) => _repository.GetById(id);
 
     public void CreateClient(ClientModel client) => _repository.Add(client);        
