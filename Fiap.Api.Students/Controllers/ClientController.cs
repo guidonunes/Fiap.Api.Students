@@ -22,6 +22,7 @@ public class ClientController: ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Roles = "operador,analista,gerente")]
     public ActionResult<IEnumerable<ClientViewModel>> Get()
     {
         var clients = _service.GetAllClients();
@@ -30,6 +31,7 @@ public class ClientController: ControllerBase
     }
 
     [HttpGet("{id}")]
+    [Authorize(Roles="analista,gerente")]
     public ActionResult<ClientViewModel> Get(int id)
     {
         var client = _service.GetClientById(id);
